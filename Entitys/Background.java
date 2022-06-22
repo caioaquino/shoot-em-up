@@ -1,6 +1,6 @@
 package Entitys;
 
-import Classes.Coordinates;
+import Types.Coordinates;
 
 public class Background {
     private Coordinates coordinates;

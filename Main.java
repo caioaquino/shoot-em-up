@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Iterator;
 import Agents.Player;
 import Entitys.Background;
 import Entitys.Projectiles;
@@ -37,79 +36,6 @@ public class Main {
 	/* Encontra e devolve o primeiro índice do */
 	/* array referente a uma posição "inativa". */
 
-	public static <T> int findFreeIndexProjectile(ArrayList<Projectiles> list) {
-
-		int i = 0;
-		Iterator iterator = list.iterator();
-		while (iterator.hasNext()) {
-
-			if (((Projectiles) iterator.next()).getState() == INACTIVE) {
-				break;
-			}
-			i++;
-		}
-		return i;
-
-	}
-
-	public static <T> int findFreeIndexEnimy(ArrayList<T> list) {
-
-		int i = 0;
-		Iterator iterator = list.iterator();
-		while (iterator.hasNext()) {
-
-			if (((Enimy) iterator.next()).getState() == INACTIVE) {
-				break;
-			}
-			i++;
-		}
-		return i;
-
-	}
-
-	/* Encontra e devolve o conjunto de índices (a quantidade */
-	/* de índices é defnida através do parâmetro "amount") do */
-	/* array referente a posições "inativas". */
-
-	public static int[] findFreeIndexProjectile(ArrayList<Projectiles> stateArray, int amount) {
-
-		int i, k;
-		int[] freeArray = new int[amount];
-
-		for (i = 0; i < freeArray.length; i++)
-			freeArray[i] = stateArray.size();
-
-		for (i = 0, k = 0; i < stateArray.size() && k < amount; i++) {
-
-			if (stateArray.get(i).getState() == INACTIVE) {
-
-				freeArray[k] = i;
-				k++;
-			}
-		}
-
-		return freeArray;
-	}
-
-	public static int[] findFreeIndexEnimy(ArrayList<Enimy> stateArray, int amount) {
-
-		int i, k;
-		int[] freeArray = new int[amount];
-
-		for (i = 0; i < freeArray.length; i++)
-			freeArray[i] = stateArray.size();
-
-		for (i = 0, k = 0; i < stateArray.size() && k < amount; i++) {
-
-			if (stateArray.get(i).getState() == INACTIVE) {
-
-				freeArray[k] = i;
-				k++;
-			}
-		}
-
-		return freeArray;
-	}
 	/* Método principal */
 
 	public static void main(String[] args) {
@@ -133,9 +59,9 @@ public class Main {
 		double enemy1_radius = 9.0; // raio (tamanho do inimigo 1)
 		long nextEnemy1 = currentTime + 2000; // instante em que um novo inimigo 1 deve aparecer
 
+
 		/* variáveis dos inimigos tipo 2 */
 		ArrayList<Enimy> enimies_2 = new ArrayList<>();
-		int enimies2Quantity = 10;
 
 		double enimies2Radius = 12.0;
 		long enimies2NextEnimy = currentTime + 7000;
@@ -148,7 +74,7 @@ public class Main {
 		 * variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2)
 		 */
 		ArrayList<Projectiles> enimy_projectiles = new ArrayList<>();
-		int enimy_projectilesQuantity = 200;
+		// int enimy_projectilesQuantity = 200;
 		double e_projectile_radius = 2.0; // raio (tamanho dos projéteis inimigos)
 
 		/* estrelas que formam o fundo de primeiro plano */
@@ -174,13 +100,13 @@ public class Main {
 		// enimies_1.add(e);
 		// }
 
-		for (int i = 0; i < enimies2Quantity; i++) {
-			Enimy e = new Enimy();
-			e.setRadius(enimies2Radius);
-			e.setNextEnimy(enimies2NextEnimy);
-			e.setState(INACTIVE);
-			enimies_2.add(e);
-		}
+		// for (int i = 0; i < enimies2Quantity; i++) {
+		// Enimy e = new Enimy();
+		// e.setRadius(enimies2Radius);
+		// e.setNextEnimy(enimies2NextEnimy);
+		// e.setState(INACTIVE);
+		// enimies_2.add(e);
+		// }
 
 		// for (int i = 0; i < player_projectiles_quantity; i++) {
 		// Projectiles projectiles = new Projectiles();
@@ -188,11 +114,11 @@ public class Main {
 		// player_projectiles.add(projectiles);
 		// }
 
-		for (int i = 0; i < enimy_projectilesQuantity; i++) {
-			Projectiles projectiles = new Projectiles();
-			projectiles.setState(INACTIVE);
-			enimy_projectiles.add(projectiles);
-		}
+		// for (int i = 0; i < enimy_projectilesQuantity; i++) {
+		// Projectiles projectiles = new Projectiles();
+		// projectiles.setState(INACTIVE);
+		// enimy_projectiles.add(projectiles);
+		// }
 
 		for (int i = 0; i < backgroundsFirstQuantity; i++) {
 			Background background = new Background();
@@ -269,7 +195,7 @@ public class Main {
 
 				/* colisões player - projeteis (inimigo) */
 
-				for (int i = 0; i < enimy_projectilesQuantity; i++) {
+				for (int i = 0; i < enimy_projectiles.size(); i++) {
 
 					double dx = enimy_projectiles.get(i).getX() - player.getX();
 					double dy = enimy_projectiles.get(i).getY() - player.getY();
@@ -298,7 +224,7 @@ public class Main {
 					}
 				}
 
-				for (int i = 0; i < enimies2Quantity; i++) {
+				for (int i = 0; i < enimies_2.size(); i++) {
 
 					double dx = enimies_2.get(i).getX() - player.getX();
 					double dy = enimies_2.get(i).getY() - player.getY();
@@ -322,7 +248,7 @@ public class Main {
 					if (enimies_1.get(i).getState() == ACTIVE) {
 
 						double dx = enimies_1.get(i).getX() - player_projectiles.get(k).getX();
-						double dy = enimies_1.get(i).getVelocity() - player_projectiles.get(k).getY();
+						double dy = enimies_1.get(i).getY() - player_projectiles.get(k).getY();
 						double dist = Math.sqrt(dx * dx + dy * dy);
 
 						if (dist < enemy1_radius) {
@@ -334,7 +260,7 @@ public class Main {
 					}
 				}
 
-				for (int i = 0; i < enimies2Quantity; i++) {
+				for (int i = 0; i < enimies_2.size(); i++) {
 
 					if (enimies_2.get(i).getState() == ACTIVE) {
 
@@ -366,6 +292,11 @@ public class Main {
 					if (player_projectiles.get(i).getY() < 0) {
 						player_projectiles.get(i).setState(INACTIVE);
 						player_projectiles.remove(i);
+						if (i > 0) {
+							i--;
+						} else {
+							break;
+						}
 
 					} else {
 
@@ -379,7 +310,7 @@ public class Main {
 
 			/* projeteis (inimigos) */
 
-			for (int i = 0; i < enimy_projectilesQuantity; i++) {
+			for (int i = 0; i < enimy_projectiles.size(); i++) {
 
 				if (enimy_projectiles.get(i).getState() == ACTIVE) {
 
@@ -387,6 +318,12 @@ public class Main {
 					if (enimy_projectiles.get(i).getY() > GameLib.HEIGHT) {
 
 						enimy_projectiles.get(i).setState(INACTIVE);
+						enimy_projectiles.remove(i);
+						if (i > 0) {
+							i--;
+						} else {
+							break;
+						}
 					} else {
 
 						enimy_projectiles.get(i).setX(enimy_projectiles.get(i).getX()
@@ -408,6 +345,11 @@ public class Main {
 
 						enimies_1.get(i).setState(INACTIVE);
 						enimies_1.remove(i);
+						if (i > 0) {
+							i--;
+						} else {
+							break;
+						}
 					}
 				}
 
@@ -418,6 +360,11 @@ public class Main {
 
 						enimies_1.get(i).setState(INACTIVE);
 						enimies_1.remove(i);
+						if (i > 0) {
+							i--;
+						} else {
+							break;
+						}
 					} else {
 
 						enimies_1.get(i).setX(enimies_1.get(i).getX()
@@ -431,20 +378,14 @@ public class Main {
 						if (currentTime > enimies_1.get(i).getNextShot()
 								&& enimies_1.get(i).getY() < player.getY()) {
 
-							int free = findFreeIndexProjectile(enimy_projectiles);
-
-							if (free < enimy_projectilesQuantity) {
-
-								enimy_projectiles.get(free).setX(enimies_1.get(i).getX());
-								enimy_projectiles.get(free).setY(enimies_1.get(i).getVelocity());
-								enimy_projectiles.get(free)
-										.setVx(Math.cos(enimies_1.get(i).getAngle()) * 0.45);
-								enimy_projectiles.get(free)
-										.setVy(Math.sin(enimies_1.get(i).getAngle()) * 0.45 * (-1.0));
-								enimy_projectiles.get(free).setState(ACTIVE);
-
-								enimies_1.get(i).setNextShot((long) (currentTime + 200 + Math.random() * 500));
-							}
+							Projectiles projectile = new Projectiles();
+							projectile.setX(enimies_1.get(i).getX());
+							projectile.setY(enimies_1.get(i).getY());
+							projectile.setVx(Math.cos(enimies_1.get(i).getAngle()) * 0.45);
+							projectile.setVy(Math.sin(enimies_1.get(i).getAngle()) * 0.45 * (-1.0));
+							projectile.setState(ACTIVE);
+							enimy_projectiles.add(projectile);
+							enimies_1.get(i).setNextShot((long) (currentTime + 200 + Math.random() * 500));
 						}
 					}
 				}
@@ -452,13 +393,19 @@ public class Main {
 
 			/* inimigos tipo 2 */
 
-			for (int i = 0; i < enimies2Quantity; i++) {
+			for (int i = 0; i < enimies_2.size(); i++) {
 
 				if (enimies_2.get(i).getState() == EXPLODING) {
 
 					if (currentTime > enimies_2.get(i).getExplosionEnd()) {
 
 						enimies_2.get(i).setState(INACTIVE);
+						enimies_2.remove(i);
+						if (i > 0) {
+							i--;
+						} else {
+							break;
+						}
 					}
 				}
 
@@ -468,6 +415,13 @@ public class Main {
 					if (enimies_2.get(i).getX() < -10 || enimies_2.get(i).getX() > GameLib.WIDTH + 10) {
 
 						enimies_2.get(i).setState(INACTIVE);
+						enimies_2.remove(i);
+						if (i > 0) {
+							i--;
+						} else {
+							break;
+						}
+
 					} else {
 
 						boolean shootNow = false;
@@ -509,25 +463,23 @@ public class Main {
 
 						if (shootNow) {
 
-							double[] angles = { Math.PI / 2 + Math.PI / 8, Math.PI / 2, Math.PI / 2 - Math.PI / 8 };
-							int[] freeArray = findFreeIndexProjectile(enimy_projectiles, angles.length);
-
-							for (int k = 0; k < freeArray.length; k++) {
-
-								int free = freeArray[k];
-
-								if (free < enimy_projectilesQuantity) {
-
-									double a = angles[k] + Math.random() * Math.PI / 6 - Math.PI / 12;
-									double vx = Math.cos(a);
-									double vy = Math.sin(a);
-
-									enimy_projectiles.get(free).setX(enimies_2.get(i).getX());
-									enimy_projectiles.get(free).setY(enimies_2.get(i).getY());
-									enimy_projectiles.get(free).setVx(vx * 0.30);
-									enimy_projectiles.get(free).setVy(vy * 0.30);
-									enimy_projectiles.get(free).setState(ACTIVE);
-
+							double[] angles = { Math.PI / 2 + Math.PI / 8, Math.PI / 2, Math.PI / 2 -
+									Math.PI / 8 };
+							int k = 0;
+							for (int j = 0; j < enimies_2.size(); j++) {
+								double a = angles[k] + Math.random() * Math.PI / 6 - Math.PI / 12;
+								double vx = Math.cos(a);
+								double vy = Math.sin(a);
+								Projectiles projectile = new Projectiles();
+								projectile.setX(enimies_2.get(i).getX());
+								projectile.setY(enimies_2.get(i).getY());
+								projectile.setVx(vx * 0.30);
+								projectile.setVy(vy * 0.30);
+								projectile.setState(ACTIVE);
+								enimy_projectiles.add(projectile);
+								k++;
+								if (k > 2) {
+									k = 0;
 								}
 							}
 						}
@@ -555,33 +507,29 @@ public class Main {
 
 			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
 
-			if (currentTime > nextEnemy2)
-
-			{
-
-				int free = findFreeIndexEnimy(enimies_2);
-
-				if (free < enimies2Quantity) {
-
-					enimies_2.get(free).setX(enemy2_spawnX);
-					enimies_2.get(free).setY(-10.0);
-					enimies_2.get(free).setVelocity(0.42);
-					enimies_2.get(free).setAngle((3 * Math.PI) / 2);
-					enimies_2.get(free).setRotationVelocity(0.0);
-					enimies_2.get(free).setState(ACTIVE);
-
-					enemy2_count++;
-
-					if (enemy2_count < 10) {
-
-						nextEnemy2 = currentTime + 120;
-					} else {
-
-						enemy2_count = 0;
-						enemy2_spawnX = Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8;
-						nextEnemy2 = (long) (currentTime + 3000 + Math.random() * 3000);
-					}
+			if (currentTime > nextEnemy2) {
+				Enimy enimy = new Enimy();
+				enimy.setX(enemy2_spawnX);
+				enimy.setY(-10.0);
+				enimy.setVelocity(0.42);
+				enimy.setAngle((3 * Math.PI) / 2);
+				enimy.setRotationVelocity(0.0);
+				enimy.setState(ACTIVE);
+				enimy.setNextShot(currentTime + 500);
+				enimy.setRadius(enimies2Radius);
+				enimy.setNextEnimy(enimies2NextEnimy);
+				enimies_2.add(enimy);
+				enemy2_count++;
+				if (enemy2_count < 10) {
+					nextEnemy2 = currentTime + 120;
+				} else {
+					enemy2_count = 0;
+					enemy2_spawnX = Math.random() > 0.5 ? GameLib.WIDTH * 0.2
+							: GameLib.WIDTH *
+									0.8;
+					nextEnemy2 = (long) (currentTime + 3000 + Math.random() * 3000);
 				}
+
 			}
 
 			/* Verificando se a explosão do player já acabou. */
@@ -704,7 +652,7 @@ public class Main {
 
 			/* desenhando projeteis (inimigos) */
 
-			for (int i = 0; i < enimy_projectilesQuantity; i++) {
+			for (int i = 0; i < enimy_projectiles.size(); i++) {
 
 				if (enimy_projectiles.get(i).getState() == ACTIVE) {
 
@@ -734,7 +682,7 @@ public class Main {
 
 			/* desenhando inimigos (tipo 2) */
 
-			for (int i = 0; i < enimies2Quantity; i++) {
+			for (int i = 0; i < enimies_2.size(); i++) {
 
 				if (enimies_2.get(i).getState() == EXPLODING) {
 

@@ -1,7 +1,7 @@
 package Entitys;
 
-import Classes.Coordinates;
-import Classes.Velocity;
+import Types.Coordinates;
+import Types.Velocity;
 
 public class Projectiles {
 

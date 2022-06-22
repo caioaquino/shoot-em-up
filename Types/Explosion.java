@@ -1,4 +1,4 @@
-package Classes;
+package Types;
 
 public class Explosion {
     public double start;

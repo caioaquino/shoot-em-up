@@ -1,7 +1,7 @@
 package Agents;
 
-import Classes.Coordinates;
-import Classes.Explosion;
+import Types.Coordinates;
+import Types.Explosion;
 
 public class Enimy {
 	private int state;

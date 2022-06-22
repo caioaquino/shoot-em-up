@@ -1,8 +1,8 @@
 package Agents;
 
-import Classes.Coordinates;
-import Classes.Explosion;
-import Classes.Velocity;
+import Types.Coordinates;
+import Types.Explosion;
+import Types.Velocity;
 
 public class Player {
     private long nextShot;

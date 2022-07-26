@@ -1,4 +1,4 @@
-package Agents;
+package Entitys;
 
 import Types.Coordinates;
 import Types.Explosion;
@@ -13,7 +13,7 @@ public class Enimy {
 	private Explosion explosion;
 	private Coordinates coordinates;
 	private long nextShot;
-   
+
 	public Enimy() {
 		this.coordinates = new Coordinates();
 		this.explosion = new Explosion();
@@ -100,10 +100,10 @@ public class Enimy {
 	}
 
 	public long getNextShot() {
-        return this.nextShot;
-    }
+		return this.nextShot;
+	}
 
-    public void setNextShot(long nextShot) {
-        this.nextShot = nextShot;
-    }
+	public void setNextShot(long nextShot) {
+		this.nextShot = nextShot;
+	}
 }

@@ -1,4 +1,4 @@
-package Agents;
+package Entitys;
 
 import Types.Coordinates;
 import Types.Explosion;
